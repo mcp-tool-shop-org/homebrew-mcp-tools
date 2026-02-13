@@ -4,6 +4,7 @@ class CodeCovered < Formula
   desc "Find coverage gaps and generate the tests you're missing"
   homepage "https://github.com/mcp-tool-shop-org/code-covered"
   url "https://github.com/mcp-tool-shop-org/code-covered/archive/refs/heads/main.tar.gz"
+  sha256 "8746f826c98c42855cb99acc9435b90f27093d2ec119304fbb28df3bda8510bc"
   version "0.5.0"
   license "MIT"
 

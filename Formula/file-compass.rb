@@ -4,6 +4,7 @@ class FileCompass < Formula
   desc "Semantic file search for AI workstations using HNSW indexing"
   homepage "https://github.com/mcp-tool-shop-org/file-compass"
   url "https://github.com/mcp-tool-shop-org/file-compass/archive/refs/heads/main.tar.gz"
+  sha256 "c2201a5344973b3bdf019127fbb6693b34bb14dabe424063639d454c12eb8f14"
   version "0.1.1"
   license "MIT"
 

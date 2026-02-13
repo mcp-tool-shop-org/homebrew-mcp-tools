@@ -4,6 +4,7 @@ class ToolScan < Formula
   desc "Security scanner for MCP (Model Context Protocol) tools"
   homepage "https://github.com/mcp-tool-shop-org/tool-scan"
   url "https://github.com/mcp-tool-shop-org/tool-scan/archive/refs/heads/main.tar.gz"
+  sha256 "a63f8e610cfbaafec43b5ccfba0c9d89d3e45a98b9cc27a41a31b7a1afab2a2a"
   version "1.0.1"
   license "MIT"
 

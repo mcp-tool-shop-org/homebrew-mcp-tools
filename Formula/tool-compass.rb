@@ -4,6 +4,7 @@ class ToolCompass < Formula
   desc "Semantic MCP Tool Discovery - Find the right tool by intent, not memory"
   homepage "https://github.com/mcp-tool-shop-org/tool-compass"
   url "https://github.com/mcp-tool-shop-org/tool-compass/archive/refs/tags/v2.1.0.tar.gz"
+  sha256 "260ecc9522ef4d2ec9c3d11e9f1ede0bf0e025e18af2e4527cf2795e43ad9294"
   license "MIT"
 
   depends_on "ollama"

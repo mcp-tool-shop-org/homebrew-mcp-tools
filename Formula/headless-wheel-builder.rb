@@ -4,6 +4,7 @@ class HeadlessWheelBuilder < Formula
   desc "Universal headless Python wheel builder"
   homepage "https://github.com/mcp-tool-shop-org/headless-wheel-builder"
   url "https://github.com/mcp-tool-shop-org/headless-wheel-builder/archive/refs/heads/main.tar.gz"
+  sha256 "d9b181ab279ba4c5d2b1573d938da235420c07273f9e4fae1cad97b743a167d7"
   version "0.3.1"
   license "MIT"
 
