@@ -2,17 +2,26 @@ name: Test Formulae
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main]
+    paths:
+      - "Formula/**"
+      - ".github/workflows/**"
   pull_request:
-    branches: [ main, master ]
+    branches: [main]
+    paths:
+      - "Formula/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-      fail-fast: false
+    # Linuxbrew works for all formulae in this tap (none are macOS-only).
+    # macOS runners cost 10x -- only enable if a formula adds depends_on :macos.
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -21,9 +30,14 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Tap this repository
+      - name: Tap local checkout
+        env:
+          HOMEBREW_NO_INSTALL_FROM_API: 1
         run: |
-          brew tap mcp-tool-shop-org/mcp-tools ${{ github.workspace }}
+          # Create the tap directory Homebrew expects, then symlink our checkout into it.
+          tap_dir="$(brew --repository)/Library/Taps/mcp-tool-shop-org/homebrew-mcp-tools"
+          mkdir -p "$(dirname "$tap_dir")"
+          ln -sfn "${{ github.workspace }}" "$tap_dir"
 
       - name: List formulae
         run: |
@@ -35,8 +49,8 @@ jobs:
           echo "Running brew audit..."
           for formula in Formula/*.rb; do
             formula_name=$(basename "$formula" .rb)
-            echo "Auditing $formula_name..."
-            brew audit --strict "$formula_name" || echo "Audit warnings for $formula_name"
+            echo "Auditing mcp-tool-shop-org/mcp-tools/$formula_name..."
+            brew audit --strict "mcp-tool-shop-org/mcp-tools/$formula_name" || echo "Audit warnings for $formula_name"
           done
 
       - name: Style check
@@ -49,6 +63,6 @@ jobs:
           echo "Testing formula syntax..."
           for formula in Formula/*.rb; do
             formula_name=$(basename "$formula" .rb)
-            echo "Testing $formula_name..."
-            brew info "$formula_name" || echo "Info failed for $formula_name"
+            echo "Testing mcp-tool-shop-org/mcp-tools/$formula_name..."
+            brew info "mcp-tool-shop-org/mcp-tools/$formula_name" || echo "Info failed for $formula_name"
           done
